@@ -11,18 +11,18 @@ import java.util.regex.Pattern;
 import seedu.flashnotes.logic.commands.AddCommand;
 import seedu.flashnotes.logic.commands.ClearCommand;
 import seedu.flashnotes.logic.commands.Command;
+import seedu.flashnotes.logic.commands.CorrectCommand;
 import seedu.flashnotes.logic.commands.DeleteCommand;
 import seedu.flashnotes.logic.commands.EditCommand;
 import seedu.flashnotes.logic.commands.ExitCommand;
 import seedu.flashnotes.logic.commands.FindCommand;
+import seedu.flashnotes.logic.commands.FlipCommand;
 import seedu.flashnotes.logic.commands.HelpCommand;
 import seedu.flashnotes.logic.commands.ListCommand;
-import seedu.flashnotes.logic.commands.FlipCommand;
-import seedu.flashnotes.logic.commands.CorrectCommand;
-import seedu.flashnotes.logic.commands.WrongCommand;
 import seedu.flashnotes.logic.commands.ListTagsCommand;
 import seedu.flashnotes.logic.commands.ReviewCommand;
 import seedu.flashnotes.logic.commands.SetReviewLimitCommand;
+import seedu.flashnotes.logic.commands.WrongCommand;
 import seedu.flashnotes.logic.parser.exceptions.ParseException;
 
 /**
