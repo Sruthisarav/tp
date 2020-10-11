@@ -174,6 +174,20 @@ public class ModelManager implements Model {
         return flashcardsToReview;
     }
 
+    /**
+     * Returns the modified list of flashcards to be reviewed after adding the extra flashcard
+     * @param flashcard
+     * @return
+     */
+    @Override
+    public ObservableList<Flashcard> addFlashcardToReview(Flashcard flashcard) {
+        ObservableList<Flashcard> flashcardsToReviewList = FXCollections.observableArrayList(
+                this.flashcardsToReview);
+        flashcardsToReviewList.add(flashcard);
+        this.flashcardsToReview = new FilteredList<>(flashcardsToReviewList);
+        return flashcardsToReview;
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

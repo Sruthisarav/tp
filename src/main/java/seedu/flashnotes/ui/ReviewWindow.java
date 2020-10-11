@@ -57,8 +57,6 @@ public class ReviewWindow extends UiPart<Stage> {
         this.logic = logic;
         this.index = 0;
         this.count = 0;
-        this.flashcardsToReview = logic.getFlashcardsToReview();
-        this.numOfFlashcards = flashcardsToReview.size();
         this.helpWindow = new HelpWindow();
         this.commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -70,12 +68,16 @@ public class ReviewWindow extends UiPart<Stage> {
     }
 
     private void updateCurrentFlashcard() { //move this to individual flashcard? move list to individual flashcard also?
+        this.flashcardsToReview = logic.getFlashcardsToReview();
+        if (index == 0) this.numOfFlashcards = flashcardsToReview.size();
         Flashcard flashcardToDisplay = flashcardsToReview.get(index);
         //this.individualFlashcard.updateFlashcardContent(flashcardToDisplay.getQuestion().question,
         //     flashcardToDisplay.getAnswer().value);
-        flipped = false;
         question.setText("Question: " + flashcardToDisplay.getQuestion().question);
         answer.setText("Answer: " + flashcardToDisplay.getAnswer().value);
+        flipped = false;
+        question.setVisible(true);
+        answer.setVisible(false);
     }
 
     /**
@@ -110,13 +112,6 @@ public class ReviewWindow extends UiPart<Stage> {
     public void show() {
         logger.fine("Showing review page about the application.");
         updateCurrentFlashcard();
-        if (flipped) {
-            question.setVisible(true);
-            answer.setVisible(false);
-        } else {
-            question.setVisible(false);
-            answer.setVisible(true);
-        }
         getRoot().setAlwaysOnTop(true);
         getRoot().showAndWait();
         getRoot().centerOnScreen();
@@ -148,20 +143,31 @@ public class ReviewWindow extends UiPart<Stage> {
      */
     public void handleFlip() {
         this.flipped = !flipped;
+        if (flipped) {
+            question.setVisible(false);
+            answer.setVisible(true);
+        } else {
+            question.setVisible(true);
+            answer.setVisible(false);
+        }
     }
 
     /**
+     * After marking the card as correct/wrong depending on user input,
+     * show the next card. If the card is wrong, add card to the back of
+     * the list to be reviewed again later.
      *
      * @param isCorrect
      */
     public void handleNextCard(int isCorrect) {
-        this.index += 1;
         if (isCorrect == 2) {
             this.count += 1;
         } else {
-            Flashcard incorrectFlashcard = flashcardsToReview.get(index);
-            this.flashcardsToReview.add(incorrectFlashcard);
+            Flashcard incorrectFlashcard = flashcardsToReview.get(this.index);
+//            flashcardsToReview.add(incorrectFlashcard);
+            logic.addFlashcardToReview(incorrectFlashcard);
         }
+        this.index += 1;
         if (count == numOfFlashcards) {
             handleExit();
         } else {
@@ -205,14 +211,6 @@ public class ReviewWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isNext() != 0) {
-                handleNextCard(commandResult.isNext());
-            }
-
-            if (commandResult.isFlipped()) {
-                handleFlip();
-            }
-
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -221,6 +219,13 @@ public class ReviewWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isNext() != 0) {
+                handleNextCard(commandResult.isNext());
+            }
+
+            if (commandResult.isFlipped()) {
+                handleFlip();
+            }
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
