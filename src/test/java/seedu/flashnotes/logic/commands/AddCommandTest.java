@@ -134,6 +134,10 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
         @Override
+        public ObservableList<Flashcard> addFlashcardToReview(Flashcard flashcard) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
         public boolean hasFlashcard(Flashcard flashcard) {
             throw new AssertionError("This method should not be called.");
         }

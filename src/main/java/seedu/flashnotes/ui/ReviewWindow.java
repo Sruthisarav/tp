@@ -18,6 +18,7 @@ import seedu.flashnotes.logic.parser.exceptions.ParseException;
 public class ReviewWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(ReviewWindow.class);
     private static final String FXML = "ReviewWindow.fxml";
+
     private Logic logic;
     private CommandBox commandBox;
     private ResultDisplay resultDisplay;
@@ -111,16 +112,9 @@ public class ReviewWindow extends UiPart<Stage> {
     /**
      * Flips the flashcard to show the answer/question
      */
-//    public void handleFlip() {
-//        this.flipped = !flipped;
-//        if (flipped) {
-//            question.setVisible(false);
-//            answer.setVisible(true);
-//        } else {
-//            question.setVisible(true);
-//            answer.setVisible(false);
-//        }
-//    }
+    public void handleFlip() {
+        this.individualFlashcard.flipFlashcard();
+    }
 
     /**
      * After marking the card as correct/wrong depending on user input,
@@ -129,21 +123,11 @@ public class ReviewWindow extends UiPart<Stage> {
      *
      * @param isCorrect
      */
-//    public void handleNextCard(int isCorrect) {
-//        if (isCorrect == 2) {
-//            this.count += 1;
-//        } else {
-//            Flashcard incorrectFlashcard = flashcardsToReview.get(this.index);
-////            flashcardsToReview.add(incorrectFlashcard);
-//            logic.addFlashcardToReview(incorrectFlashcard);
-//        }
-//        this.index += 1;
-//        if (count == numOfFlashcards) {
-//            handleExit();
-//        } else {
-//            updateCurrentFlashcard();
-//        }
-//    }
+    public void handleNextCard(int isCorrect) {
+        if (individualFlashcard.handleNextCard(isCorrect).equals("exit")) {
+            handleExit();
+        }
+    }
 
     /**
      * Opens the help window or focuses on it if it's already opened.
@@ -190,11 +174,11 @@ public class ReviewWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isNext() != 0) {
-//                handleNextCard(commandResult.isNext());
+                handleNextCard(commandResult.isNext());
             }
 
             if (commandResult.isFlipped()) {
-//                handleFlip();
+                handleFlip();
             }
             return commandResult;
         } catch (CommandException | ParseException e) {

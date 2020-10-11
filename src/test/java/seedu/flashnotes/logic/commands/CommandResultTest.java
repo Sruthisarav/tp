@@ -14,11 +14,8 @@ public class CommandResultTest {
 
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
-<<<<<<< HEAD
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false, false, 0)));
-=======
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false)));
->>>>>>> upstream/init-review-mode-branch
+        assertTrue(commandResult.equals(new CommandResult("feedback", false, false,
+                false, false, 0)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -33,17 +30,12 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different showHelp value -> returns false
-<<<<<<< HEAD
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false, false, false, 0)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", true, false,
+                false, false, 0)));
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true, false, false, 0)));
-=======
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false, false)));
-
-        // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true, false)));
->>>>>>> upstream/init-review-mode-branch
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, true,
+                false, false, 0)));
     }
 
     @Test
@@ -57,18 +49,11 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
 
         // different showHelp value -> returns different hashcode
-<<<<<<< HEAD
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true,
                 false, false, false, 0).hashCode());
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
                 true, false, false, 0).hashCode());
-=======
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false, false).hashCode());
-
-        // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true, false).hashCode());
->>>>>>> upstream/init-review-mode-branch
     }
 }

@@ -14,12 +14,8 @@ public class ExitCommandTest {
 
     @Test
     public void execute_exit_success() {
-<<<<<<< HEAD
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false,
                 true, false, false, 0);
-=======
-        CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, false);
->>>>>>> upstream/init-review-mode-branch
         assertCommandSuccess(new ExitCommand(), model, expectedCommandResult, expectedModel);
     }
 }

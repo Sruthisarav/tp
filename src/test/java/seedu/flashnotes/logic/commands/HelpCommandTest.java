@@ -14,11 +14,7 @@ public class HelpCommandTest {
 
     @Test
     public void execute_help_success() {
-<<<<<<< HEAD
         CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false, false, false, 0);
-=======
-        CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false, false);
->>>>>>> upstream/init-review-mode-branch
         assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
     }
 }
