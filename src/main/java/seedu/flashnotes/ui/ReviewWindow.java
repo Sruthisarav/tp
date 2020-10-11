@@ -28,6 +28,8 @@ public class ReviewWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private boolean flipped;
+    private int count;
+    private int numOfFlashcards;
     //    private IndividualFlashcard individualFlashcard;
 
     private Stage primaryStage;
@@ -54,6 +56,9 @@ public class ReviewWindow extends UiPart<Stage> {
         super(FXML, new Stage());
         this.logic = logic;
         this.index = 0;
+        this.count = 0;
+        this.flashcardsToReview = logic.getFlashcardsToReview();
+        this.numOfFlashcards = flashcardsToReview.size();
         this.helpWindow = new HelpWindow();
         this.commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -65,7 +70,6 @@ public class ReviewWindow extends UiPart<Stage> {
     }
 
     private void updateCurrentFlashcard() { //move this to individual flashcard? move list to individual flashcard also?
-        this.flashcardsToReview = logic.getFlashcardsToReview(); //try and move this to constructor?
         Flashcard flashcardToDisplay = flashcardsToReview.get(index);
         //this.individualFlashcard.updateFlashcardContent(flashcardToDisplay.getQuestion().question,
         //     flashcardToDisplay.getAnswer().value);
@@ -147,6 +151,25 @@ public class ReviewWindow extends UiPart<Stage> {
     }
 
     /**
+     *
+     * @param isCorrect
+     */
+    public void handleNextCard(int isCorrect) {
+        this.index += 1;
+        if (isCorrect == 2) {
+            this.count += 1;
+        } else {
+            Flashcard incorrectFlashcard = flashcardsToReview.get(index);
+            this.flashcardsToReview.add(incorrectFlashcard);
+        }
+        if (count == numOfFlashcards) {
+            handleExit();
+        } else {
+            updateCurrentFlashcard();
+        }
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -181,6 +204,10 @@ public class ReviewWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isNext() != 0) {
+                handleNextCard(commandResult.isNext());
+            }
 
             if (commandResult.isFlipped()) {
                 handleFlip();

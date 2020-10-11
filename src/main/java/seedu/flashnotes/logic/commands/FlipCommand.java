@@ -12,6 +12,6 @@ public class FlipCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(MESSAGE_FLIP_ACKNOWLEDGEMENT, false, false, true, true);
+        return new CommandResult(MESSAGE_FLIP_ACKNOWLEDGEMENT, false, false, true, true, 0);
     }
 }

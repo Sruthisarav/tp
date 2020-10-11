@@ -18,6 +18,8 @@ import seedu.flashnotes.logic.commands.FindCommand;
 import seedu.flashnotes.logic.commands.HelpCommand;
 import seedu.flashnotes.logic.commands.ListCommand;
 import seedu.flashnotes.logic.commands.FlipCommand;
+import seedu.flashnotes.logic.commands.CorrectCommand;
+import seedu.flashnotes.logic.commands.WrongCommand;
 import seedu.flashnotes.logic.commands.ListTagsCommand;
 import seedu.flashnotes.logic.commands.ReviewCommand;
 import seedu.flashnotes.logic.commands.SetReviewLimitCommand;
@@ -53,6 +55,12 @@ public class FlashNotesParser {
 
         case FlipCommand.COMMAND_WORD:
             return new FlipCommand();
+
+        case CorrectCommand.COMMAND_WORD:
+            return new CorrectCommand();
+
+        case WrongCommand.COMMAND_WORD:
+            return new WrongCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
