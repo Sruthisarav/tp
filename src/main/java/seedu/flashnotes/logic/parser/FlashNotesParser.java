@@ -22,7 +22,10 @@ import seedu.flashnotes.logic.commands.ListCommand;
 import seedu.flashnotes.logic.commands.ListTagsCommand;
 import seedu.flashnotes.logic.commands.ReviewCommand;
 import seedu.flashnotes.logic.commands.SetReviewLimitCommand;
+<<<<<<< HEAD
 import seedu.flashnotes.logic.commands.WrongCommand;
+=======
+>>>>>>> upstream/init-review-mode-branch
 import seedu.flashnotes.logic.parser.exceptions.ParseException;
 
 /**
@@ -41,6 +44,7 @@ public class FlashNotesParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
+<<<<<<< HEAD
         case EditCommand.COMMAND_WORD:
         case DeleteCommand.COMMAND_WORD:
         case ClearCommand.COMMAND_WORD:
@@ -48,11 +52,26 @@ public class FlashNotesParser {
         case SetReviewLimitCommand.COMMAND_WORD:
         case ListTagsCommand.COMMAND_WORD:
         case ListCommand.COMMAND_WORD:
+=======
+            throw new ParseException(MESSAGE_UNAVAILABLE_IN_REVIEW_MODE);
+
+        case EditCommand.COMMAND_WORD:
+            throw new ParseException(MESSAGE_UNAVAILABLE_IN_REVIEW_MODE);
+
+        case DeleteCommand.COMMAND_WORD:
+            throw new ParseException(MESSAGE_UNAVAILABLE_IN_REVIEW_MODE);
+
+        case ClearCommand.COMMAND_WORD:
+            throw new ParseException(MESSAGE_UNAVAILABLE_IN_REVIEW_MODE);
+
+        case FindCommand.COMMAND_WORD:
+>>>>>>> upstream/init-review-mode-branch
             throw new ParseException(MESSAGE_UNAVAILABLE_IN_REVIEW_MODE);
 
         case ReviewCommand.COMMAND_WORD:
             throw new ParseException(MESSAGE_ALREADY_IN_REVIEW_MODE);
 
+<<<<<<< HEAD
         case FlipCommand.COMMAND_WORD:
             return new FlipCommand();
 
@@ -61,6 +80,16 @@ public class FlashNotesParser {
 
         case WrongCommand.COMMAND_WORD:
             return new WrongCommand();
+=======
+        case SetReviewLimitCommand.COMMAND_WORD:
+            throw new ParseException(MESSAGE_UNAVAILABLE_IN_REVIEW_MODE);
+
+        case ListTagsCommand.COMMAND_WORD:
+            throw new ParseException(MESSAGE_UNAVAILABLE_IN_REVIEW_MODE);
+
+        case ListCommand.COMMAND_WORD:
+            throw new ParseException(MESSAGE_UNAVAILABLE_IN_REVIEW_MODE);
+>>>>>>> upstream/init-review-mode-branch
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
