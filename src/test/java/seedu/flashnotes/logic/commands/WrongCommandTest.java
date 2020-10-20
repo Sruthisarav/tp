@@ -11,11 +11,10 @@ import seedu.flashnotes.model.UserPrefs;
 
 public class WrongCommandTest {
     private Model model;
-    private Model expectedModel;
+
     @Test
     public void execute_wrong_command_success() {
         model = new ModelManager(getTypicalFlashNotes(), new UserPrefs());
-        expectedModel = new ModelManager(model.getFlashNotes(), new UserPrefs());
         CommandResult expectedCommandResult = new CommandResult(WrongCommand.MESSAGE_WRONG_ACKNOWLEDGEMENT,
                 false, false, false, false, 1);
         WrongCommand wrongCommand = new WrongCommand();
